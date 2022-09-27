@@ -14,5 +14,5 @@ public class QuestionOptionEntity : BaseEntity
 
     public long? NextQuestionId { get; set; }
 
-    public virtual QuestionEntity? NextQuestion { get; set; }
+    public virtual QuestionEntity NextQuestion { get; set; }
 }

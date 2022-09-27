@@ -125,15 +125,18 @@ public class ApplicationDbContextInitialiser
                 }
             };
 
-        entryQuestion.Options = entryQuestionOptions;
-
         await _context.Questions.AddAsync(entryQuestion);
+        await _context.SaveChangesAsync();
 
         var juniorQuestion = new QuestionEntity()
         {
             Text = "So you select to be developer. You want still work as dev?",
             Sequence = 2
         };
+
+        var entryOption = entryQuestionOptions.Single(_ => _.Label == "Yes");
+        entryOption.NextQuestion = juniorQuestion;
+        _context.QuestionOptions.Update(entryOption);
 
         var juniorQuestionOptions = new List<QuestionOptionEntity>()
             {
@@ -151,15 +154,18 @@ public class ApplicationDbContextInitialiser
                 }
             };
 
-        juniorQuestion.Options = juniorQuestionOptions;
-
         await _context.Questions.AddAsync(juniorQuestion);
+        await _context.SaveChangesAsync();
 
         var midQuestion = new QuestionEntity()
         {
             Text = "Still in codding... Do you still want continue work?",
             Sequence = 3
         };
+
+        var juniorOption = juniorQuestionOptions.Single(_ => _.Label == "Yes");
+        juniorOption.NextQuestion = midQuestion;
+        _context.QuestionOptions.Update(juniorOption);
 
         var midQuestionOptions = new List<QuestionOptionEntity>()
             {
@@ -177,9 +183,76 @@ public class ApplicationDbContextInitialiser
                 }
             };
 
-        midQuestion.Options = midQuestionOptions;
-
         await _context.Questions.AddAsync(midQuestion);
+        await _context.SaveChangesAsync();
+
+        var seniorQuestion = new QuestionEntity()
+        {
+            Text = "Good work... Do you want became lead dev or maybe junior project manager?",
+            Sequence = 4
+        };
+
+        var midOption = midQuestionOptions.Single(_ => _.Label == "Yes");
+        midOption.NextQuestion = seniorQuestion;
+        _context.QuestionOptions.Update(midOption);
+
+        var seniorQuestionOptions = new List<QuestionOptionEntity>()
+            {
+                new QuestionOptionEntity()
+                {
+                    Question = seniorQuestion,
+                    Label = "Senior Developer",
+                    Value = 0
+                },
+                new QuestionOptionEntity()
+                {
+                    Question = seniorQuestion,
+                    Label = "Junior Project Manager",
+                    Value = 1
+                }
+            };
+
+        await _context.Questions.AddAsync(seniorQuestion);
+        await _context.SaveChangesAsync();
+
+        var leadQuestion = new QuestionEntity()
+        {
+            Text = "Amazing you are lead developer... Do you want became Architect or Project Manager?",
+            Sequence = 5
+        };
+
+        var projectQuestion = new QuestionEntity()
+        {
+            Text = "Ahh.. So you selected to be Project Manager. This is still valid?",
+            Sequence = 6
+        };
+
+        var seniorDevOption = seniorQuestionOptions.Single(_ => _.Label == "Senior Developer");
+        seniorDevOption.NextQuestion = leadQuestion;
+        _context.QuestionOptions.Update(seniorDevOption);
+
+        var seniorProjectOption = seniorQuestionOptions.Single(_ => _.Label == "Junior Project Manager");
+        seniorProjectOption.NextQuestion = projectQuestion;
+        _context.QuestionOptions.Update(seniorProjectOption);
+
+        var leadQuestionOptions = new List<QuestionOptionEntity>()
+            {
+                new QuestionOptionEntity()
+                {
+                    Question = seniorQuestion,
+                    Label = "Lead Software Enginner",
+                    Value = 0
+                },
+                new QuestionOptionEntity()
+                {
+                    Question = seniorQuestion,
+                    Label = "Project Manager",
+                    Value = 1
+                }
+            };
+
+        await _context.Questions.AddAsync(leadQuestion);
+        await _context.Questions.AddAsync(projectQuestion);
 
         await _context.SaveChangesAsync();
     }
