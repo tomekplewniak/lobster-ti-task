@@ -4,5 +4,7 @@ public interface IUnitOfWork : IDisposable, IAsyncDisposable
 {
     IUserRepository UserRepository { get; }
 
+    IQuestionRepository QuestionRepository { get; }
+
     Task SaveAsync();
 }
