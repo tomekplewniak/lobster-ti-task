@@ -52,6 +52,7 @@ public class ApplicationDbContextInitialiser
         // Default data
         // Seed, if necessary
         await AddUsers();
+        await AddQuestionsAndOptions();
     }
 
     private async Task AddUsers()
@@ -98,5 +99,19 @@ public class ApplicationDbContextInitialiser
             await _context.Users.AddRangeAsync(users);
             await _context.SaveChangesAsync();
         }
+    }
+
+    private async Task AddQuestionsAndOptions()
+    {
+        //    var entryOption = new List<QuestionOptionEntity>() 
+        //    {
+        //        new QuestionOptionEntity()
+        //        {
+
+        //        }
+        //    }
+        //    var question = new QuestionEntity("Do you want to start a carrier as software developer?",
+        //        new List<QuestionOptionEntity>() { QuestionOptionEntity})
+        //}
     }
 }
