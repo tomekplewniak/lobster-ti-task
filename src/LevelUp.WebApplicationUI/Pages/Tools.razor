@@ -1,0 +1,52 @@
+﻿@page "/tools"
+
+@inject ISnackbar Snackbar
+
+<PageTitle>Tools</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Tools</MudText>
+
+<MudButton @onclick="@(() => ChangeVariant("Text Snackbar", Variant.Text))" Color="Color.Primary">Open Text Snackbar Variants</MudButton>
+<MudButton @onclick="@(() => ChangeVariant("Filled Snackbar", Variant.Filled))" Color="Color.Secondary">Open Filled Snackbar Variants</MudButton>
+<MudButton @onclick="@(() => ChangeVariant("Outlined Snackbar", Variant.Outlined))" Color="Color.Tertiary">Open Outlined Snackbar Variants</MudButton>
+
+<MudButton Disabled="@_processing" OnClick="ProcessSomething" Variant="Variant.Filled" Color="Color.Primary">
+    @if (_processing)
+    {
+        <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+        <MudText Class="ms-2">Processing</MudText>
+    }
+    else
+    {
+        <MudText>Click me</MudText>
+    }
+</MudButton>
+
+@code {
+    private bool _processing = false;
+
+    async Task ProcessSomething()
+    {
+        _processing = true;
+
+        Snackbar.Add("Remains open after navigation.", Severity.Normal);
+
+        await Task.Delay(2000);
+
+        _processing = false;
+    }
+
+
+    void ChangeVariant(string message, Variant variant)
+    {
+        Snackbar.Configuration.SnackbarVariant = variant;
+        Snackbar.Configuration.MaxDisplayedSnackbars = 10;
+        Snackbar.Configuration.BackgroundBlurred = true;
+        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomLeft;
+        Snackbar.Add($"Normal {message}", Severity.Normal);
+        Snackbar.Add($"Info {message}", Severity.Info);
+        Snackbar.Add($"Success {message}", Severity.Success);
+        Snackbar.Add($"Warning {message}", Severity.Warning);
+        Snackbar.Add($"Error {message}", Severity.Error);
+    }
+}

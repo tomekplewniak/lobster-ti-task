@@ -1,0 +1,89 @@
+﻿@using LevelUp.Domain.DtoModels.User
+@using System.Text
+@using LevelUp.WebApplicationUI.Data
+@inject HttpClient httpClient
+@inject IUserService UserService
+@if (users is null)
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" Size="Size.Large" />
+    <MudText Typo="Typo.h3" GutterBottom="true">Loading</MudText>
+}
+else
+{
+    <MudStack>
+        <MudPaper Class="pa-4">
+            <MudStack Row="true">
+                <MudItem>
+                    <MudAutocomplete T="string" Label="Search user" @bind-Value="value2" SearchFunc="@UserSearch"
+                                 ResetValueOnEmptyText="@resetValueOnEmptyText"
+                                 CoerceText="@coerceText" CoerceValue="@coerceValue"
+                                 AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Primary" />
+                </MudItem>
+            </MudStack>
+        </MudPaper>
+
+        @foreach (var user in users)
+        {
+            <MudStack Spacing="4">
+                <MudPaper Class="pa-4">
+                    <MudStack Row="true">
+                        @if (user.Avatar is not null)
+                        {
+                            <MudAvatar Image="@user.Avatar" Size="Size.Large" />
+                        }
+                        else
+                        {
+                            <MudAvatar Color="Color.Primary" Variant="Variant.Outlined" Size="Size.Large">
+                                @GetInitials(user)
+                            </MudAvatar>
+                        }
+
+                        <MudStack Justify="Justify.Center" Spacing="0">
+                            <MudText Typo="Typo.body1" GutterBottom=true>@user.FullName</MudText>
+                            <MudText Typo="Typo.body2">@user.Email</MudText>
+                        </MudStack>
+                    </MudStack>
+                </MudPaper>
+            </MudStack>
+        }
+
+    </MudStack>
+}
+
+@code {
+    private IEnumerable<UserDto>? users;
+    private IEnumerable<UserDto>? userSerachResult;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            users = await UserService.GetAllUsers();
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+    private string GetInitials(UserDto userEntity)
+    {
+        var initials = new StringBuilder();
+
+        initials.Append(userEntity.FirstName.Substring(0, 1));
+        initials.Append(userEntity.LastName.Substring(0, 1));
+
+        return initials.ToString();
+    }
+
+    private bool resetValueOnEmptyText;
+    private bool coerceText;
+    private bool coerceValue;
+    private string value1, value2;
+
+    private async Task<IEnumerable<string>> UserSearch(string name)
+    {
+        var users = await UserService.GetUserByNameSearch(name);
+        return users.Select(_ => _.FullName);
+    }
+}
