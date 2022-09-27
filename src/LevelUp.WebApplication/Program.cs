@@ -24,8 +24,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+//builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -34,12 +34,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
 
-    app.UseSwagger();
-    app.UseSwaggerUI( c =>
-    {
-        c.RoutePrefix = "swagger";
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "LevelUp API V1");
-    });
+    //app.UseSwagger();
+    //app.UseSwaggerUI( c =>
+    //{
+    //    c.RoutePrefix = "swagger";
+    //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "LevelUp API V1");
+    //});
 
     app.UseDeveloperExceptionPage();
     app.UseMigrationsEndPoint();
@@ -54,8 +54,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    // app.UseExceptionHandler("/Error");
-
+    app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
