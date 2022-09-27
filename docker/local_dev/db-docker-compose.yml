@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  db:
+    container_name: postgresql_container
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: StandardPavdom80
+    ports:
+      - "5432:5432"
