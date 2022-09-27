@@ -11,6 +11,10 @@ namespace LevelUp.WebApplication.Mapping
             CreateMap<QuestionDto, QuestionEntity>()
                 .ForMember(entity => entity.DomainEvents, opts => opts.Ignore());
             CreateMap<QuestionEntity, QuestionDto>();
+
+            CreateMap<QuestionOptionDto, QuestionOptionEntity>()
+                .ForMember(entity => entity.DomainEvents, opts => opts.Ignore());
+            CreateMap<QuestionOptionEntity, QuestionOptionDto>();
         }
     }
 }

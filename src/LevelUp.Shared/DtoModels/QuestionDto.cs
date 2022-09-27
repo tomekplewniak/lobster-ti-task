@@ -7,4 +7,6 @@ public class QuestionDto
     public string Text { get; set; }
 
     public uint Sequence { get; set; }
+
+    public List<QuestionOptionDto> Options { get; set; }
 }

@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Persistence\EntityConfiguration\" />
     <Folder Include="Persistence\Migrations\" />
   </ItemGroup>
 

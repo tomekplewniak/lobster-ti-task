@@ -13,6 +13,4 @@ public class QuestionOptionEntity : BaseEntity
     public float Value { get; set; }
 
     public long? NextQuestionId { get; set; }
-
-    public virtual QuestionEntity NextQuestion { get; set; }
 }
