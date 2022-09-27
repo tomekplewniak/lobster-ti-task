@@ -3,6 +3,7 @@ using System;
 using LevelUp.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LevelUp.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220927175312_AddQuestionsEntites")]
+    partial class AddQuestionsEntites
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,14 +57,18 @@ namespace LevelUp.Infrastructure.Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<bool>("IsUnknown")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_unknown");
+
                     b.Property<string>("Label")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("label");
 
-                    b.Property<long?>("NextQuestionId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("next_question_id");
+                    b.Property<int>("OptionIndex")
+                        .HasColumnType("integer")
+                        .HasColumnName("option_index");
 
                     b.Property<long>("QuestionId")
                         .HasColumnType("bigint")
@@ -71,6 +77,10 @@ namespace LevelUp.Infrastructure.Persistence.Migrations
                     b.Property<float>("Value")
                         .HasColumnType("real")
                         .HasColumnName("value");
+
+                    b.Property<float>("Weight")
+                        .HasColumnType("real")
+                        .HasColumnName("weight");
 
                     b.HasKey("Id")
                         .HasName("pk_question_options");

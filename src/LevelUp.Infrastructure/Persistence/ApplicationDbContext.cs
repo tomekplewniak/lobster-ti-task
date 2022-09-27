@@ -24,6 +24,11 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     public DbSet<UserEntity> Users => Set<UserEntity>();
 
+    public DbSet<QuestionEntity> Questions => Set<QuestionEntity>();
+
+    public DbSet<QuestionOptionEntity> QuestionOptions => Set<QuestionOptionEntity>();
+
+    public DbSet<QuestionResponseEntity> QuestionResponses => Set<QuestionResponseEntity>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

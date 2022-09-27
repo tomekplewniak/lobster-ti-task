@@ -12,9 +12,7 @@ public class QuestionOptionEntity : BaseEntity
 
     public float Value { get; set; }
 
-    public float Weight { get; set; }
+    public long? NextQuestionId { get; set; }
 
-    public bool IsUnknown { get; set; }
-
-    public int OptionIndex { get; set; }
+    public virtual QuestionEntity? NextQuestion { get; set; }
 }

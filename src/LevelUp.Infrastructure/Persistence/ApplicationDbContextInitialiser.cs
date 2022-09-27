@@ -103,15 +103,84 @@ public class ApplicationDbContextInitialiser
 
     private async Task AddQuestionsAndOptions()
     {
-        //    var entryOption = new List<QuestionOptionEntity>() 
-        //    {
-        //        new QuestionOptionEntity()
-        //        {
+        var entryQuestion = new QuestionEntity()
+        {
+            Text = "Do you want to start a carrier as software developer?",
+            Sequence = 1
+        };
 
-        //        }
-        //    }
-        //    var question = new QuestionEntity("Do you want to start a carrier as software developer?",
-        //        new List<QuestionOptionEntity>() { QuestionOptionEntity})
-        //}
+        var entryQuestionOptions = new List<QuestionOptionEntity>()
+            {
+                new QuestionOptionEntity()
+                {
+                    Question = entryQuestion,
+                    Label = "No",
+                    Value = 0
+                },
+                new QuestionOptionEntity()
+                {
+                    Question = entryQuestion,
+                    Label = "Yes",
+                    Value = 1
+                }
+            };
+
+        entryQuestion.Options = entryQuestionOptions;
+
+        await _context.Questions.AddAsync(entryQuestion);
+
+        var juniorQuestion = new QuestionEntity()
+        {
+            Text = "So you select to be developer. You want still work as dev?",
+            Sequence = 2
+        };
+
+        var juniorQuestionOptions = new List<QuestionOptionEntity>()
+            {
+                new QuestionOptionEntity()
+                {
+                    Question = juniorQuestion,
+                    Label = "No",
+                    Value = 0
+                },
+                new QuestionOptionEntity()
+                {
+                    Question = juniorQuestion,
+                    Label = "Yes",
+                    Value = 1
+                }
+            };
+
+        juniorQuestion.Options = juniorQuestionOptions;
+
+        await _context.Questions.AddAsync(juniorQuestion);
+
+        var midQuestion = new QuestionEntity()
+        {
+            Text = "Still in codding... Do you still want continue work?",
+            Sequence = 3
+        };
+
+        var midQuestionOptions = new List<QuestionOptionEntity>()
+            {
+                new QuestionOptionEntity()
+                {
+                    Question = midQuestion,
+                    Label = "No",
+                    Value = 0
+                },
+                new QuestionOptionEntity()
+                {
+                    Question = midQuestion,
+                    Label = "Yes",
+                    Value = 1
+                }
+            };
+
+        midQuestion.Options = midQuestionOptions;
+
+        await _context.Questions.AddAsync(midQuestion);
+
+        await _context.SaveChangesAsync();
     }
 }

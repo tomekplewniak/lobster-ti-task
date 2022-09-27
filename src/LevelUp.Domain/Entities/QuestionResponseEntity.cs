@@ -4,12 +4,6 @@ namespace LevelUp.Domain.Entities;
 
 public class QuestionResponseEntity : BaseEntity
 {
-    public QuestionResponseEntity(QuestionEntity question, QuestionOptionEntity selectedOption)
-    {
-        Question = question;
-        SelectedOption = selectedOption;
-    }
-
     public Guid UserId { get; set; }
 
     public long QuestionId { get; set; }
