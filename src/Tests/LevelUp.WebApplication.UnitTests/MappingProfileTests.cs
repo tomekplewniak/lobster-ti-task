@@ -12,6 +12,7 @@ public class MappingProfileTests
         cfg =>
         {
             cfg.AddProfile(new UserProfile());
+            cfg.AddProfile(new QuestionProfile());
         });
 
         IMapper mapper = new Mapper(mapperConfig);

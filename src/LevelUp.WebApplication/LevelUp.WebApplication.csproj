@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\LevelUp.Application\LevelUp.Application.csproj" />
     <ProjectReference Include="..\LevelUp.Infrastructure\LevelUp.Infrastructure.csproj" />
+    <ProjectReference Include="..\LevelUp.Shared\LevelUp.Shared.csproj" />
     <ProjectReference Include="..\LevelUp.WebApplicationUI\LevelUp.WebApplicationUI.csproj" />
   </ItemGroup>
 

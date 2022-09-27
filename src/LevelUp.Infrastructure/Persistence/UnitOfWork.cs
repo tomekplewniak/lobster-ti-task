@@ -8,17 +8,22 @@ public class UnitOfWork : IUnitOfWork
     private readonly ILogger<UnitOfWork> _logger;
     private readonly ApplicationDbContext _context;
     private readonly IUserRepository _userRepository;
+    private readonly IQuestionRepository _questionRepository;
 
     public UnitOfWork(ILogger<UnitOfWork> logger,
             ApplicationDbContext context,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            IQuestionRepository questionRepository)
     {
         _logger = logger;
         _context = context;
         _userRepository = userRepository;
+        _questionRepository = questionRepository;
     }
 
     public IUserRepository UserRepository => _userRepository;
+    public IQuestionRepository QuestionRepository => _questionRepository;
+
 
     public async Task SaveAsync()
     {

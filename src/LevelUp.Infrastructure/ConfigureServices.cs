@@ -31,6 +31,7 @@ public static class ConfigureServices
         services.AddTransient<IUnitOfWork, UnitOfWork>();
 
         services.AddTransient<IUserRepository, UserRepository>();
+        services.AddTransient<IQuestionRepository, QuestionRepository>();
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 

@@ -105,6 +105,7 @@ public class ApplicationDbContextInitialiser
     {
         var entryQuestion = new QuestionEntity()
         {
+            Id = 1,
             Text = "Do you want to start a carrier as software developer?",
             Sequence = 1
         };
@@ -130,12 +131,13 @@ public class ApplicationDbContextInitialiser
 
         var juniorQuestion = new QuestionEntity()
         {
+            Id = 2,
             Text = "So you select to be developer. You want still work as dev?",
             Sequence = 2
         };
 
         var entryOption = entryQuestionOptions.Single(_ => _.Label == "Yes");
-        entryOption.NextQuestion = juniorQuestion;
+        entryOption.NextQuestionId = 2;
         _context.QuestionOptions.Update(entryOption);
 
         var juniorQuestionOptions = new List<QuestionOptionEntity>()
@@ -159,12 +161,13 @@ public class ApplicationDbContextInitialiser
 
         var midQuestion = new QuestionEntity()
         {
+            Id = 3,
             Text = "Still in codding... Do you still want continue work?",
             Sequence = 3
         };
 
         var juniorOption = juniorQuestionOptions.Single(_ => _.Label == "Yes");
-        juniorOption.NextQuestion = midQuestion;
+        juniorOption.NextQuestionId = 3;
         _context.QuestionOptions.Update(juniorOption);
 
         var midQuestionOptions = new List<QuestionOptionEntity>()
@@ -188,12 +191,13 @@ public class ApplicationDbContextInitialiser
 
         var seniorQuestion = new QuestionEntity()
         {
+            Id = 4,
             Text = "Good work... Do you want became lead dev or maybe junior project manager?",
             Sequence = 4
         };
 
         var midOption = midQuestionOptions.Single(_ => _.Label == "Yes");
-        midOption.NextQuestion = seniorQuestion;
+        midOption.NextQuestionId = 4;
         _context.QuestionOptions.Update(midOption);
 
         var seniorQuestionOptions = new List<QuestionOptionEntity>()
@@ -217,22 +221,24 @@ public class ApplicationDbContextInitialiser
 
         var leadQuestion = new QuestionEntity()
         {
+            Id = 5,
             Text = "Amazing you are lead developer... Do you want became Architect or Project Manager?",
             Sequence = 5
         };
 
         var projectQuestion = new QuestionEntity()
         {
+            Id = 6,
             Text = "Ahh.. So you selected to be Project Manager. This is still valid?",
             Sequence = 6
         };
 
         var seniorDevOption = seniorQuestionOptions.Single(_ => _.Label == "Senior Developer");
-        seniorDevOption.NextQuestion = leadQuestion;
+        seniorDevOption.NextQuestionId = 5;
         _context.QuestionOptions.Update(seniorDevOption);
 
         var seniorProjectOption = seniorQuestionOptions.Single(_ => _.Label == "Junior Project Manager");
-        seniorProjectOption.NextQuestion = projectQuestion;
+        seniorProjectOption.NextQuestionId = 6;
         _context.QuestionOptions.Update(seniorProjectOption);
 
         var leadQuestionOptions = new List<QuestionOptionEntity>()
